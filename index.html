@@ -516,7 +516,7 @@
   <div class="container">
     
     <header>
-      <h1>🛏️ صمّم غرفتك</h1>
+      <h1>️ صمّم غرفتك</h1>
       <p>خلّني أصمم غرفتك على قد ميزانيتك ✨</p>
     </header>
     
@@ -530,7 +530,7 @@
     <!-- ========== الخطوة 1: بيانات الغرفة ========== -->
     <div class="step active" id="step1">
       <div class="card">
-        <h2>📐 الخطوة 1: بيانات غرفتك</h2>
+        <h2> الخطوة 1: بيانات غرفتك</h2>
         
         <div class="form-row">
           <div class="form-group">
@@ -554,7 +554,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label> موقع الشباك</label>
+            <label>🪟 موقع الشباك</label>
             <select id="windowLocation">
               <option value="front">الجدار الأمامي</option>
               <option value="back">الجدار الخلفي</option>
@@ -569,9 +569,9 @@
           <div class="checkbox-group">
             <label><input type="checkbox" value="سرير" checked> 🛏️ سرير</label>
             <label><input type="checkbox" value="مكتب" checked> 🖥️ مكتب</label>
-            <label><input type="checkbox" value="دولاب" checked> 🚪 دولاب</label>
-            <label><input type="checkbox" value="كرسي"> 🪑 كرسي</label>
-            <label><input type="checkbox" value="رفوف"> 📚 رفوف</label>
+            <label><input type="checkbox" value="دولاب" checked>  دولاب</label>
+            <label><input type="checkbox" value="كرسي">  كرسي</label>
+            <label><input type="checkbox" value="رفوف">  رفوف</label>
           </div>
         </div>
         
@@ -589,7 +589,7 @@
     <!-- ========== الخطوة 2: اختيار الستايل ========== -->
     <div class="step" id="step2">
       <div class="card">
-        <h2> الخطوة 2: اختر ستايل غرفتك</h2>
+        <h2>🎨 الخطوة 2: اختر ستايل غرفتك</h2>
         <p style="color:#666; margin-bottom:20px;">اضغطي على الستايل اللي يعجبك:</p>
         
         <div class="styles-grid">
@@ -598,7 +598,7 @@
             <span class="name">هادئ وبسيط</span>
           </div>
           <div class="style-card" onclick="selectStyle(this, 'كيوت')">
-            <span class="emoji"></span>
+            <span class="emoji">🌸</span>
             <span class="name">كيوت</span>
           </div>
           <div class="style-card" onclick="selectStyle(this, 'مودرن')">
@@ -638,7 +638,7 @@
       </div>
       
       <div class="card">
-        <h2>💰 تفاصيل الميزانية</h2>
+        <h2> تفاصيل الميزانية</h2>
         <table class="budget-table">
           <thead>
             <tr>
@@ -656,7 +656,7 @@
         <p style="color:#666; margin-bottom:20px;">احفظي تصميمك أو شاركيه مع صديقاتك</p>
         <div class="btn-container">
           <button class="btn btn-success" onclick="saveDesign()">💾 حفظ التصميم</button>
-          <button class="btn btn-share" onclick="shareDesign()">📤 مشاركة التصميم</button>
+          <button class="btn btn-share" onclick="shareDesign()"> مشاركة التصميم</button>
           <button class="btn btn-secondary" onclick="goToStep(1)">🔄 ابدأ من جديد</button>
         </div>
       </div>
@@ -687,97 +687,97 @@
     const itemsDB = {
       'هادئ وبسيط': [
         {name:'سجادة بيج', price:120, emoji:'🟫', x:15, y:55},
-        {name:'إضاءة دافئة', price:70, emoji:'', x:70, y:10},
+        {name:'إضاءة دافئة', price:70, emoji:'💡', x:70, y:10},
         {name:'مرآة خشبية', price:150, emoji:'🪞', x:75, y:45},
         {name:'طاولة صغيرة', price:300, emoji:'🪵', x:45, y:70},
-        {name:'ستارة كتان', price:100, emoji:'', x:85, y:25},
+        {name:'ستارة كتان', price:100, emoji:'🪟', x:85, y:25},
         {name:'نباتات ديكور', price:160, emoji:'🌿', x:8, y:15}
       ],
       'كيوت': [
         {name:'سجادة وردية', price:130, emoji:'🌸', x:15, y:55},
         {name:'إضاءة نجمة', price:80, emoji:'⭐', x:70, y:10},
         {name:'مرآة قلب', price:160, emoji:'💖', x:75, y:45},
-        {name:'مكتب كيوت', price:320, emoji:'', x:45, y:70},
-        {name:'ستارة شيفون', price:110, emoji:'🩷', x:85, y:25},
+        {name:'مكتب كيوت', price:320, emoji:'🎀', x:45, y:70},
+        {name:'ستارة شيفون', price:110, emoji:'', x:85, y:25},
         {name:'دمى ديكور', price:170, emoji:'🧸', x:8, y:15}
       ],
       'مودرن': [
         {name:'سجادة رمادية', price:140, emoji:'⬜', x:15, y:55},
         {name:'إضاءة LED', price:90, emoji:'💡', x:70, y:10},
-        {name:'مرآة دائرية', price:180, emoji:'', x:75, y:45},
+        {name:'مرآة دائرية', price:180, emoji:'⭕', x:75, y:45},
         {name:'طاولة زجاج', price:350, emoji:'🔷', x:45, y:70},
         {name:'ستارة رول', price:120, emoji:'🪟', x:85, y:25},
         {name:'لوحة تجريدية', price:190, emoji:'🖼️', x:8, y:15}
       ],
       'Gaming': [
-        {name:'سجادة RGB', price:150, emoji:'🎮', x:15, y:55},
+        {name:'سجادة RGB', price:150, emoji:'', x:15, y:55},
         {name:'إضاءة نيون', price:100, emoji:'💜', x:70, y:10},
         {name:'مرآة LED', price:170, emoji:'🪞', x:75, y:45},
-        {name:'مكتب قيمنق', price:400, emoji:'🖥️', x:45, y:70},
+        {name:'مكتب قيمنق', price:400, emoji:'️', x:45, y:70},
         {name:'ستارة سوداء', price:130, emoji:'⬛', x:85, y:25},
-        {name:'بوسترات ألعاب', price:180, emoji:'️', x:8, y:15}
+        {name:'بوسترات ألعاب', price:180, emoji:'🕹️', x:8, y:15}
       ],
       'فخم': [
-        {name:'سجادة حرير', price:200, emoji:'👑', x:15, y:55},
+        {name:'سجادة حرير', price:200, emoji:'', x:15, y:55},
         {name:'ثريا كريستال', price:150, emoji:'💎', x:70, y:10},
         {name:'مرآة ذهبية', price:250, emoji:'✨', x:75, y:45},
-        {name:'طاولة رخام', price:500, emoji:'🏛️', x:45, y:70},
+        {name:'طاولة رخام', price:500, emoji:'️', x:45, y:70},
         {name:'ستارة مخمل', price:180, emoji:'🟤', x:85, y:25},
         {name:'تمثال ديكور', price:280, emoji:'🗿', x:8, y:15}
       ]
     };
     
-    // === قاعدة بيانات المتاجر ===
+    // === قاعدة بيانات المتاجر (روابط بحث ذكية) ===
     const shopsDB = {
       'سجادة': [
-        {shop:'IKEA', price:110, url:'https://www.ikea.com/sa/ar/'},
-        {shop:'نون', price:125, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'أمازون', price:118, url:'https://www.amazon.sa/'}
+        {shop:'IKEA', price:110, searchUrl:'https://www.ikea.com/sa/ar/search/?q='},
+        {shop:'نون', price:125, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'أمازون', price:118, searchUrl:'https://www.amazon.sa/s?k='}
       ],
       'إضاءة': [
-        {shop:'هوم سنتر', price:65, url:'https://www.homecentre.com/sa/ar/'},
-        {shop:'نون', price:72, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'أمازون', price:68, url:'https://www.amazon.sa/'}
+        {shop:'هوم سنتر', price:65, searchUrl:'https://www.homecentre.com/sa/ar/search?q='},
+        {shop:'نون', price:72, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'أمازون', price:68, searchUrl:'https://www.amazon.sa/s?k='}
       ],
       'مرآة': [
-        {shop:'هوم سنتر', price:145, url:'https://www.homecentre.com/sa/ar/'},
-        {shop:'IKEA', price:155, url:'https://www.ikea.com/sa/ar/'},
-        {shop:'نون', price:148, url:'https://www.noon.com/saudi-ar/'}
+        {shop:'هوم سنتر', price:145, searchUrl:'https://www.homecentre.com/sa/ar/search?q='},
+        {shop:'IKEA', price:155, searchUrl:'https://www.ikea.com/sa/ar/search/?q='},
+        {shop:'نون', price:148, searchUrl:'https://www.noon.com/saudi-ar/?query='}
       ],
       'طاولة': [
-        {shop:'IKEA', price:290, url:'https://www.ikea.com/sa/ar/'},
-        {shop:'نون', price:310, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'هوم سنتر', price:305, url:'https://www.homecentre.com/sa/ar/'}
+        {shop:'IKEA', price:290, searchUrl:'https://www.ikea.com/sa/ar/search/?q='},
+        {shop:'نون', price:310, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'هوم سنتر', price:305, searchUrl:'https://www.homecentre.com/sa/ar/search?q='}
       ],
       'ستارة': [
-        {shop:'أمازون', price:95, url:'https://www.amazon.sa/'},
-        {shop:'نون', price:105, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'هوم سنتر', price:100, url:'https://www.homecentre.com/sa/ar/'}
+        {shop:'أمازون', price:95, searchUrl:'https://www.amazon.sa/s?k='},
+        {shop:'نون', price:105, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'هوم سنتر', price:100, searchUrl:'https://www.homecentre.com/sa/ar/search?q='}
       ],
       'ديكور': [
-        {shop:'نون', price:155, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'أمازون', price:165, url:'https://www.amazon.sa/'},
-        {shop:'هوم سنتر', price:158, url:'https://www.homecentre.com/sa/ar/'}
+        {shop:'نون', price:155, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'أمازون', price:165, searchUrl:'https://www.amazon.sa/s?k='},
+        {shop:'هوم سنتر', price:158, searchUrl:'https://www.homecentre.com/sa/ar/search?q='}
       ],
       'نباتات ديكور': [
-        {shop:'نون', price:160, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'أمازون', price:170, url:'https://www.amazon.sa/'}
+        {shop:'نون', price:160, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'أمازون', price:170, searchUrl:'https://www.amazon.sa/s?k='}
       ],
       'دمى ديكور': [
-        {shop:'نون', price:170, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'أمازون', price:175, url:'https://www.amazon.sa/'}
+        {shop:'نون', price:170, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'أمازون', price:175, searchUrl:'https://www.amazon.sa/s?k='}
       ],
       'لوحة تجريدية': [
-        {shop:'نون', price:190, url:'https://www.noon.com/saudi-ar/'},
-        {shop:'هوم سنتر', price:195, url:'https://www.homecentre.com/sa/ar/'}
+        {shop:'نون', price:190, searchUrl:'https://www.noon.com/saudi-ar/?query='},
+        {shop:'هوم سنتر', price:195, searchUrl:'https://www.homecentre.com/sa/ar/search?q='}
       ],
       'بوسترات ألعاب': [
-        {shop:'أمازون', price:180, url:'https://www.amazon.sa/'},
-        {shop:'نون', price:185, url:'https://www.noon.com/saudi-ar/'}
+        {shop:'أمازون', price:180, searchUrl:'https://www.amazon.sa/s?k='},
+        {shop:'نون', price:185, searchUrl:'https://www.noon.com/saudi-ar/?query='}
       ],
       'تمثال ديكور': [
-        {shop:'هوم سنتر', price:280, url:'https://www.homecentre.com/sa/ar/'},
-        {shop:'نون', price:290, url:'https://www.noon.com/saudi-ar/'}
+        {shop:'هوم سنتر', price:280, searchUrl:'https://www.homecentre.com/sa/ar/search?q='},
+        {shop:'نون', price:290, searchUrl:'https://www.noon.com/saudi-ar/?query='}
       ]
     };
     
@@ -816,7 +816,7 @@
       
       document.getElementById('chosenStyle').textContent = selectedStyleName;
       document.getElementById('roomSize').textContent = `📐 ${roomData.length}م × ${roomData.width}م`;
-      document.getElementById('budgetInfo').textContent = `💰 الميزانية: ${roomData.budget} ريال`;
+      document.getElementById('budgetInfo').textContent = ` الميزانية: ${roomData.budget} ريال`;
       
       drawRoom();
       buildBudgetTable();
@@ -829,7 +829,7 @@
       
       const door = document.createElement('div');
       door.className = 'door-marker';
-      door.textContent = ' باب';
+      door.textContent = '🚪 باب';
       const doorPos = getWallPosition(roomData.door);
       door.style.left = doorPos.x + '%';
       door.style.top = doorPos.y + '%';
@@ -872,11 +872,13 @@
       
       currentItems.forEach(item => {
         total += item.price;
+        // تم تعديل الزر لتمرير البيانات بشكل آمن
+        const safeItem = JSON.stringify(item).replace(/'/g, "&#39;");
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${item.emoji} ${item.name}</td>
           <td>${item.price} ريال</td>
-          <td><button class="buy-btn" onclick='openShopModal(${JSON.stringify(item).replace(/'/g, "&#39;")})'>🛍️ شراء</button></td>
+          <td><button class="buy-btn" onclick='openShopModal(${safeItem})'>🛍️ شراء</button></td>
         `;
         tbody.appendChild(tr);
       });
@@ -889,12 +891,12 @@
       const remaining = roomData.budget - total;
       const remainingRow = document.createElement('tr');
       remainingRow.className = remaining >= 0 ? 'budget-remaining' : 'budget-negative';
-      const status = remaining >= 0 ? '✅' : '⚠️ تجاوزتِ الميزانية!';
+      const status = remaining >= 0 ? '✅' : '️ تجاوزتِ الميزانية!';
       remainingRow.innerHTML = `<td>المتبقي من ميزانيتك</td><td>${remaining} ريال ${status}</td><td></td>`;
       tbody.appendChild(remainingRow);
     }
     
-    // === نافذة المتجر ===
+    // === نافذة المتجر (مع روابط البحث الذكية) ===
     function openShopModal(item) {
       const modal = document.getElementById('shopModal');
       const title = document.getElementById('modalTitle');
@@ -906,19 +908,20 @@
       
       const categoryKey = Object.keys(shopsDB).find(key => item.name.includes(key));
       const options = shopsDB[categoryKey] || [
-        {shop:'متجر عام', price: item.price, url: `https://www.google.com/search?q=${encodeURIComponent(item.name)}+شراء`}
+        {shop:'متجر عام', price: item.price, searchUrl: `https://www.google.com/search?q=`}
       ];
       
       options.sort((a, b) => a.price - b.price);
       
+      // هنا التعديل المهم: بناء رابط البحث ديناميكياً
       body.innerHTML = options.map((opt, index) => `
-        <div class="shop-option" onclick="window.open('${opt.url}', '_blank')">
+        <div class="shop-option" onclick="window.open('${opt.searchUrl}${encodeURIComponent(item.name)}', '_blank')">
           <div>
             <div class="shop-name">
               ${index === 0 ? '<span class="cheapest-badge">الأرخص</span>' : ''}
               ${opt.shop}
             </div>
-            <div class="shop-link">اضغطي للزيارة ←</div>
+            <div class="shop-link">اضغطي للبحث ←</div>
           </div>
           <div class="shop-price">${opt.price} ريال</div>
         </div>
@@ -960,7 +963,6 @@
       currentItems = design.items;
       selectedStyleName = roomData.style;
       
-      // تعبئة الحقول
       document.getElementById('roomLength').value = roomData.length;
       document.getElementById('roomWidth').value = roomData.width;
       document.getElementById('budget').value = roomData.budget;
@@ -968,7 +970,7 @@
       document.getElementById('windowLocation').value = roomData.window;
       
       document.getElementById('chosenStyle').textContent = selectedStyleName;
-      document.getElementById('roomSize').textContent = `📐 ${roomData.length}م × ${roomData.width}م`;
+      document.getElementById('roomSize').textContent = ` ${roomData.length}م × ${roomData.width}م`;
       document.getElementById('budgetInfo').textContent = `💰 الميزانية: ${roomData.budget} ريال`;
       
       drawRoom();
@@ -978,12 +980,10 @@
       showToast('📂 تم استرجاع التصميم المحفوظ!');
     }
     
-    // === إخفاء بانر التصميم المحفوظ ===
     function dismissSaved() {
       document.getElementById('savedBanner').classList.remove('show');
     }
     
-    // === التحقق من وجود تصميم محفوظ عند فتح الصفحة ===
     window.addEventListener('DOMContentLoaded', function() {
       const saved = localStorage.getItem('savedRoomDesign');
       if (saved) {
@@ -1008,7 +1008,6 @@
       });
       text += `\nجرّبي أنتِ كمان: ${window.location.href}`;
       
-      // محاولة استخدام Web Share API (للجوال)
       if (navigator.share) {
         navigator.share({
           title: 'تصميم غرفتي',
@@ -1023,9 +1022,8 @@
     
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
-        showToast(' تم نسخ التصميم! الصقيه في واتساب أو تويتر');
+        showToast('📋 تم نسخ التصميم! الصقيه في واتساب أو تويتر');
       }).catch(() => {
-        // fallback
         const textarea = document.createElement('textarea');
         textarea.value = text;
         document.body.appendChild(textarea);
