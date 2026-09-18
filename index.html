@@ -4,8 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>صمّم غرفتك</title>
-  
-  <!-- خط عربي جميل من جوجل -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
   
   <style>
@@ -57,21 +55,191 @@
     
     .card h2 {
       color: #d81b60;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
       margin-bottom: 15px;
+    }
+    
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      font-size: 1em;
+      font-family: 'Tajawal', sans-serif;
+      transition: 0.3s;
+    }
+    
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #d81b60;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #d81b60, #ad1457);
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      border-radius: 12px;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Tajawal', sans-serif;
+      transition: 0.3s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
+    }
+    
+    .btn-container {
+      text-align: center;
+      margin-top: 25px;
     }
   </style>
 </head>
 <body>
   <div class="container">
+    
     <header>
-      <h1>🛏️ صمّم غرفتك</h1>
+      <h1>️ صمّم غرفتك</h1>
       <p>خلّني أصمم غرفتك على قد ميزانيتك ✨</p>
     </header>
     
     <div class="card">
-      <h2>مرحباً بك! 👋</h2>
-      <p>هنا نبدأ ببناء الموقع خطوة بخطوة...</p>
+      <h2>📐 الخطوة 1: بيانات غرفتك</h2>
+      
+      <!-- الطول والعرض -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>📏 طول الغرفة (متر)</label>
+          <input type="number" id="roomLength" value="4" min="2" max="10">
+        </div>
+        <div class="form-group">
+          <label>📐 عرض الغرفة (متر)</label>
+          <input type="number" id="roomWidth" value="3" min="2" max="10">
+        </div>
+      </div>
+      
+      <!-- الباب والشباك -->
+      <div class="form-row">
+        <div class="form-group">
+          <label>🚪 موقع الباب</label>
+          <select id="doorLocation">
+            <option value="right">الجدار اليمين</option>
+            <option value="left">الجدار اليسار</option>
+            <option value="front">الجدار الأمامي</option>
+            <option value="back">الجدار الخلفي</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label> موقع الشباك</label>
+          <select id="windowLocation">
+            <option value="front">الجدار الأمامي</option>
+            <option value="back">الجدار الخلفي</option>
+            <option value="right">الجدار اليمين</option>
+            <option value="left">الجدار اليسار</option>
+          </select>
+        </div>
+      </div>
+      
+      <!-- الأثاث الموجود -->
+      <div class="form-group">
+        <label>🛋️ الأثاث الموجود عندك</label>
+        <div class="checkbox-group">
+          <label><input type="checkbox" value="سرير" checked> 🛏️ سرير</label>
+          <label><input type="checkbox" value="مكتب" checked> 🖥️ مكتب</label>
+          <label><input type="checkbox" value="دولاب" checked> 🚪 دولاب</label>
+          <label><input type="checkbox" value="كرسي"> 🪑 كرسي</label>
+          <label><input type="checkbox" value="رفوف"> 📚 رفوف</label>
+        </div>
+      </div>
+      
+      <!-- الميزانية -->
+      <div class="form-group">
+        <label>💰 ميزانيتك (ريال)</label>
+        <input type="number" id="budget" value="1500" min="100" step="50">
+      </div>
+      
+      <!-- زر التالي -->
+      <div class="btn-container">
+        <button class="btn" onclick="saveRoomData()">التالي: اختر الستايل ←</button>
+      </div>
+      
     </div>
+    
   </div>
+  
+  <script>
+    function saveRoomData() {
+      // قراءة البيانات من الحقول
+      const roomData = {
+        length: document.getElementById('roomLength').value,
+        width: document.getElementById('roomWidth').value,
+        door: document.getElementById('doorLocation').value,
+        window: document.getElementById('windowLocation').value,
+        budget: document.getElementById('budget').value,
+        furniture: []
+      };
+      
+      // جمع الأثاث المختار
+      const checkboxes = document.querySelectorAll('.checkbox-group input:checked');
+      checkboxes.forEach(cb => {
+        roomData.furniture.push(cb.value);
+      });
+      
+      // حفظ البيانات (مؤقتاً في الذاكرة)
+      console.log('بيانات الغرفة:', roomData);
+      alert('✅ تم حفظ بيانات غرفتك!\n\nالطول: ' + roomData.length + 'م\nالعرض: ' + roomData.width + 'م\nالميزانية: ' + roomData.budget + ' ريال');
+    }
+  </script>
+  
 </body>
 </html>
