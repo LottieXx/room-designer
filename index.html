@@ -3,8 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>صمّم غرفتك</title>
+  
+  <!-- === معلومات الموقع لمحركات البحث === -->
+  <title>صمّم غرفتك | صمم غرفتك على قد ميزانيتك ✨</title>
+  <meta name="description" content="أداة تفاعلية لتصميم غرف النوم بالعربي. أدخل أبعاد غرفتك وميزانيتك واحصل على تصميم كامل مع أسعار من متاجر حقيقية مثل IKEA ونون وأمازون.">
+  <meta name="keywords" content="تصميم غرف, ديكور, أثاث, ميزانية, غرفة نوم, ستايل, Saudi Arabia, room design">
+  <meta name="author" content="صمّم غرفتك">
+  <meta name="robots" content="index, follow">
+  
+  <!-- === Open Graph للسوشيال ميديا === -->
+  <meta property="og:title" content="صمّم غرفتك | صمم غرفتك على قد ميزانيتك ✨">
+  <meta property="og:description" content="أداة تفاعلية لتصميم غرف النوم بالعربي مع أسعار من متاجر حقيقية">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://YOUR_USERNAME.github.io/room-designer/">
+  <meta property="og:image" content="https://YOUR_USERNAME.github.io/room-designer/og-image.png">
+  <meta property="og:locale" content="ar_SA">
+  
+  <!-- === Twitter Card === -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="صمّم غرفتك | صمم غرفتك على قد ميزانيتك ✨">
+  <meta name="twitter:description" content="أداة تفاعلية لتصميم غرف النوم بالعربي مع أسعار من متاجر حقيقية">
+  
+  <!-- === Favicon === -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛏️</text></svg>">
+  
+  <!-- === خط عربي === -->
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- === Google Analytics (استبدلي G-XXXXXXXXXX بمعرفك) === -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+    
+    // تتبع أحداث مخصصة
+    function trackEvent(eventName, params) {
+      gtag('event', eventName, params);
+    }
+  </script>
   
   <style>
     * {
@@ -510,13 +548,26 @@
       font-family: 'Tajawal', sans-serif;
       font-weight: bold;
     }
+    
+    /* --- فوتر === */
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+      font-size: 0.9em;
+    }
+    
+    footer a {
+      color: #d81b60;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     
     <header>
-      <h1>️ صمّم غرفتك</h1>
+      <h1>🛏️ صمّم غرفتك</h1>
       <p>خلّني أصمم غرفتك على قد ميزانيتك ✨</p>
     </header>
     
@@ -530,7 +581,7 @@
     <!-- ========== الخطوة 1: بيانات الغرفة ========== -->
     <div class="step active" id="step1">
       <div class="card">
-        <h2> الخطوة 1: بيانات غرفتك</h2>
+        <h2>📐 الخطوة 1: بيانات غرفتك</h2>
         
         <div class="form-row">
           <div class="form-group">
@@ -554,7 +605,7 @@
             </select>
           </div>
           <div class="form-group">
-            <label>🪟 موقع الشباك</label>
+            <label> موقع الشباك</label>
             <select id="windowLocation">
               <option value="front">الجدار الأمامي</option>
               <option value="back">الجدار الخلفي</option>
@@ -569,9 +620,9 @@
           <div class="checkbox-group">
             <label><input type="checkbox" value="سرير" checked> 🛏️ سرير</label>
             <label><input type="checkbox" value="مكتب" checked> 🖥️ مكتب</label>
-            <label><input type="checkbox" value="دولاب" checked>  دولاب</label>
-            <label><input type="checkbox" value="كرسي">  كرسي</label>
-            <label><input type="checkbox" value="رفوف">  رفوف</label>
+            <label><input type="checkbox" value="دولاب" checked> 🚪 دولاب</label>
+            <label><input type="checkbox" value="كرسي"> 🪑 كرسي</label>
+            <label><input type="checkbox" value="رفوف"> 📚 رفوف</label>
           </div>
         </div>
         
@@ -606,7 +657,7 @@
             <span class="name">مودرن</span>
           </div>
           <div class="style-card" onclick="selectStyle(this, 'Gaming')">
-            <span class="emoji">🎮</span>
+            <span class="emoji"></span>
             <span class="name">Gaming</span>
           </div>
           <div class="style-card" onclick="selectStyle(this, 'فخم')">
@@ -638,7 +689,7 @@
       </div>
       
       <div class="card">
-        <h2> تفاصيل الميزانية</h2>
+        <h2>💰 تفاصيل الميزانية</h2>
         <table class="budget-table">
           <thead>
             <tr>
@@ -656,7 +707,7 @@
         <p style="color:#666; margin-bottom:20px;">احفظي تصميمك أو شاركيه مع صديقاتك</p>
         <div class="btn-container">
           <button class="btn btn-success" onclick="saveDesign()">💾 حفظ التصميم</button>
-          <button class="btn btn-share" onclick="shareDesign()"> مشاركة التصميم</button>
+          <button class="btn btn-share" onclick="shareDesign()">📤 مشاركة التصميم</button>
           <button class="btn btn-secondary" onclick="goToStep(1)">🔄 ابدأ من جديد</button>
         </div>
       </div>
@@ -678,6 +729,11 @@
   <!-- ========== تنبيه الحفظ ========== -->
   <div class="save-toast" id="saveToast"></div>
   
+  <!-- ========== فوتر ========== -->
+  <footer>
+    <p>صُنع بـ 💖 بواسطة <a href="#">صمّم غرفتك</a> | جميع الحقوق محفوظة © 2026</p>
+  </footer>
+  
   <script>
     let selectedStyleName = '';
     let roomData = {};
@@ -689,39 +745,39 @@
         {name:'سجادة بيج', price:120, emoji:'🟫', x:15, y:55},
         {name:'إضاءة دافئة', price:70, emoji:'💡', x:70, y:10},
         {name:'مرآة خشبية', price:150, emoji:'🪞', x:75, y:45},
-        {name:'طاولة صغيرة', price:300, emoji:'🪵', x:45, y:70},
+        {name:'طاولة صغيرة', price:300, emoji:'', x:45, y:70},
         {name:'ستارة كتان', price:100, emoji:'🪟', x:85, y:25},
         {name:'نباتات ديكور', price:160, emoji:'🌿', x:8, y:15}
       ],
       'كيوت': [
-        {name:'سجادة وردية', price:130, emoji:'🌸', x:15, y:55},
+        {name:'سجادة وردية', price:130, emoji:'', x:15, y:55},
         {name:'إضاءة نجمة', price:80, emoji:'⭐', x:70, y:10},
-        {name:'مرآة قلب', price:160, emoji:'💖', x:75, y:45},
+        {name:'مرآة قلب', price:160, emoji:'', x:75, y:45},
         {name:'مكتب كيوت', price:320, emoji:'🎀', x:45, y:70},
-        {name:'ستارة شيفون', price:110, emoji:'', x:85, y:25},
-        {name:'دمى ديكور', price:170, emoji:'🧸', x:8, y:15}
+        {name:'ستارة شيفون', price:110, emoji:'🩷', x:85, y:25},
+        {name:'دمى ديكور', price:170, emoji:'', x:8, y:15}
       ],
       'مودرن': [
         {name:'سجادة رمادية', price:140, emoji:'⬜', x:15, y:55},
-        {name:'إضاءة LED', price:90, emoji:'💡', x:70, y:10},
+        {name:'إضاءة LED', price:90, emoji:'', x:70, y:10},
         {name:'مرآة دائرية', price:180, emoji:'⭕', x:75, y:45},
         {name:'طاولة زجاج', price:350, emoji:'🔷', x:45, y:70},
-        {name:'ستارة رول', price:120, emoji:'🪟', x:85, y:25},
+        {name:'ستارة رول', price:120, emoji:'', x:85, y:25},
         {name:'لوحة تجريدية', price:190, emoji:'🖼️', x:8, y:15}
       ],
       'Gaming': [
-        {name:'سجادة RGB', price:150, emoji:'', x:15, y:55},
+        {name:'سجادة RGB', price:150, emoji:'🎮', x:15, y:55},
         {name:'إضاءة نيون', price:100, emoji:'💜', x:70, y:10},
         {name:'مرآة LED', price:170, emoji:'🪞', x:75, y:45},
-        {name:'مكتب قيمنق', price:400, emoji:'️', x:45, y:70},
-        {name:'ستارة سوداء', price:130, emoji:'⬛', x:85, y:25},
+        {name:'مكتب قيمنق', price:400, emoji:'🖥️', x:45, y:70},
+        {name:'ستارة سوداء', price:130, emoji:'', x:85, y:25},
         {name:'بوسترات ألعاب', price:180, emoji:'🕹️', x:8, y:15}
       ],
       'فخم': [
-        {name:'سجادة حرير', price:200, emoji:'', x:15, y:55},
+        {name:'سجادة حرير', price:200, emoji:'👑', x:15, y:55},
         {name:'ثريا كريستال', price:150, emoji:'💎', x:70, y:10},
         {name:'مرآة ذهبية', price:250, emoji:'✨', x:75, y:45},
-        {name:'طاولة رخام', price:500, emoji:'️', x:45, y:70},
+        {name:'طاولة رخام', price:500, emoji:'🏛️', x:45, y:70},
         {name:'ستارة مخمل', price:180, emoji:'🟤', x:85, y:25},
         {name:'تمثال ديكور', price:280, emoji:'🗿', x:8, y:15}
       ]
@@ -787,6 +843,11 @@
       });
       document.getElementById('step' + stepNumber).classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // تتبع الانتقال بين الخطوات
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'step_view', { step: stepNumber });
+      }
     }
     
     function selectStyle(element, styleName) {
@@ -795,6 +856,11 @@
       });
       element.classList.add('active');
       selectedStyleName = styleName;
+      
+      // تتبع اختيار الستايل
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'style_selected', { style_name: styleName });
+      }
     }
     
     function generateDesign() {
@@ -821,6 +887,15 @@
       drawRoom();
       buildBudgetTable();
       goToStep(3);
+      
+      // تتبع إتمام التصميم
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'design_completed', {
+          style: selectedStyleName,
+          budget: roomData.budget,
+          items_count: currentItems.length
+        });
+      }
     }
     
     function drawRoom() {
@@ -872,7 +947,6 @@
       
       currentItems.forEach(item => {
         total += item.price;
-        // تم تعديل الزر لتمرير البيانات بشكل آمن
         const safeItem = JSON.stringify(item).replace(/'/g, "&#39;");
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -891,7 +965,7 @@
       const remaining = roomData.budget - total;
       const remainingRow = document.createElement('tr');
       remainingRow.className = remaining >= 0 ? 'budget-remaining' : 'budget-negative';
-      const status = remaining >= 0 ? '✅' : '️ تجاوزتِ الميزانية!';
+      const status = remaining >= 0 ? '✅' : '⚠️ تجاوزتِ الميزانية!';
       remainingRow.innerHTML = `<td>المتبقي من ميزانيتك</td><td>${remaining} ريال ${status}</td><td></td>`;
       tbody.appendChild(remainingRow);
     }
@@ -913,9 +987,8 @@
       
       options.sort((a, b) => a.price - b.price);
       
-      // هنا التعديل المهم: بناء رابط البحث ديناميكياً
       body.innerHTML = options.map((opt, index) => `
-        <div class="shop-option" onclick="window.open('${opt.searchUrl}${encodeURIComponent(item.name)}', '_blank')">
+        <div class="shop-option" onclick="handleShopClick('${opt.shop}', '${item.name}', ${opt.price})">
           <div>
             <div class="shop-name">
               ${index === 0 ? '<span class="cheapest-badge">الأرخص</span>' : ''}
@@ -928,6 +1001,30 @@
       `).join('');
       
       modal.classList.add('active');
+      
+      // تتبع فتح نافذة المتجر
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'shop_modal_opened', { item_name: item.name });
+      }
+    }
+    
+    // === معالجة الضغط على المتجر (مع التتبع) ===
+    function handleShopClick(shopName, itemName, price) {
+      // تتبع النقر على المتجر
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'shop_click', {
+          shop_name: shopName,
+          item_name: itemName,
+          price: price
+        });
+      }
+      
+      // بناء رابط البحث وفتحه
+      const categoryKey = Object.keys(shopsDB).find(key => itemName.includes(key));
+      const options = shopsDB[categoryKey] || [{searchUrl: 'https://www.google.com/search?q='}];
+      const shop = options.find(s => s.shop === shopName);
+      const url = shop ? `${shop.searchUrl}${encodeURIComponent(itemName)}` : `https://www.google.com/search?q=${encodeURIComponent(itemName)}`;
+      window.open(url, '_blank');
     }
     
     function closeModal() {
@@ -951,6 +1048,11 @@
       };
       localStorage.setItem('savedRoomDesign', JSON.stringify(design));
       showToast('✅ تم حفظ التصميم بنجاح!');
+      
+      // تتبع الحفظ
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'design_saved');
+      }
     }
     
     // === استرجاع التصميم المحفوظ ===
@@ -970,14 +1072,19 @@
       document.getElementById('windowLocation').value = roomData.window;
       
       document.getElementById('chosenStyle').textContent = selectedStyleName;
-      document.getElementById('roomSize').textContent = ` ${roomData.length}م × ${roomData.width}م`;
-      document.getElementById('budgetInfo').textContent = `💰 الميزانية: ${roomData.budget} ريال`;
+      document.getElementById('roomSize').textContent = `📐 ${roomData.length}م × ${roomData.width}م`;
+      document.getElementById('budgetInfo').textContent = ` الميزانية: ${roomData.budget} ريال`;
       
       drawRoom();
       buildBudgetTable();
       goToStep(3);
       dismissSaved();
       showToast('📂 تم استرجاع التصميم المحفوظ!');
+      
+      // تتبع الاسترجاع
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'design_loaded');
+      }
     }
     
     function dismissSaved() {
@@ -989,6 +1096,11 @@
       if (saved) {
         document.getElementById('savedBanner').classList.add('show');
       }
+      
+      // تتبع زيارة الصفحة
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'page_load');
+      }
     });
     
     // === مشاركة التصميم ===
@@ -996,7 +1108,7 @@
       const total = currentItems.reduce((sum, item) => sum + item.price, 0);
       const remaining = roomData.budget - total;
       
-      let text = `🛏️ صمّمت غرفتي على موقع "صمّم غرفتك"!\n\n`;
+      let text = `️ صمّمت غرفتي على موقع "صمّم غرفتك"!\n\n`;
       text += `📐 الغرفة: ${roomData.length}م × ${roomData.width}م\n`;
       text += `🎨 الستايل: ${selectedStyleName}\n`;
       text += `💰 الميزانية: ${roomData.budget} ريال\n`;
@@ -1017,6 +1129,11 @@
         });
       } else {
         copyToClipboard(text);
+      }
+      
+      // تتبع المشاركة
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'design_shared');
       }
     }
     
