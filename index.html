@@ -342,20 +342,587 @@
       font-size: 0.9em;
       margin-top: 10px;
     }
+    
+    /* --- النافذة المنبثقة (Modal) --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #eee;
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 1.2em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-close:hover {
+      background: #ddd;
+    }
+    
+    .modal-title {
+      color: #d81b60;
+      font-size: 1.4em;
+      margin-bottom: 5px;
+    }
+    
+    .modal-subtitle {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .shop-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .shop-option:hover {
+      border-color: #d81b60;
+      background: #fce4ec;
+    }
+    
+    .shop-option .shop-name {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    
+    .shop-option .shop-link {
+      font-size: 0.85em;
+      color: #888;
+      margin-top: 3px;
+    }
+    
+    .shop-option .shop-price {
+      font-weight: bold;
+      color: #d81b60;
+      font-size: 1.2em;
+      white-space: nowrap;
+    }
+    
+    .cheapest-badge {
+      background: #4caf50# 🛍️ الخطوة 5: نافذة المتاجر (شراء القطع)
+
+ممتاز! الآن نضيف الميزة اللي تخلي الموقع **يفلوس** 💰 — لما المستخدم يضغط على قطعة، تظهر له خيارات من متاجر حقيقية بأسعار مختلفة.
+
+---
+
+## 🎯 هدف هذه الخطوة
+
+1. إنشاء نافذة منبثقة (Modal) تظهر عند الضغط على أي قطعة
+2. عرض 3-4 خيارات من متاجر مختلفة (IKEA، نون، أمازون، هوم سنتر)
+3. كل خيار فيه اسم المتجر + السعر + رابط للشراء
+4. تحديث جدول الميزانية لو اختار سعر مختلف
+
+---
+
+## 📋 الكود الكامل (استبدلي الكود القديم)
+
+احذفي كل الكود في `index.html` والصقي هذا:
+
+```html
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>صمّم غرفتك</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Tajawal', sans-serif;
+    }
+    
+    body {
+      background: linear-gradient(135deg, #fce4ec 0%, #e3f2fd 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    header {
+      text-align: center;
+      padding: 30px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    header h1 {
+      color: #d81b60;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    
+    header p {
+      color: #666;
+      font-size: 1.1em;
+    }
+    
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    
+    .card h2 {
+      color: #d81b60;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #555;
+    }
+    
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #eee;
+      border-radius: 10px;
+      font-size: 1em;
+      font-family: 'Tajawal', sans-serif;
+      transition: 0.3s;
+    }
+    
+    input[type="number"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #d81b60;
+    }
+    
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      font-weight: normal;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+    
+    .btn {
+      background: linear-gradient(135deg, #d81b60, #ad1457);
+      color: white;
+      border: none;
+      padding: 14px 40px;
+      border-radius: 12px;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Tajawal', sans-serif;
+      transition: 0.3s;
+    }
+    
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
+    }
+    
+    .btn-secondary {
+      background: #eee;
+      color: #333;
+    }
+    
+    .btn-container {
+      text-align: center;
+      margin-top: 25px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .styles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .style-card {
+      background: #fafafa;
+      border: 3px solid transparent;
+      border-radius: 15px;
+      padding: 20px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .style-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .style-card.active {
+      border-color: #d81b60;
+      background: #fce4ec;
+    }
+    
+    .style-card .emoji {
+      font-size: 2.5em;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .style-card .name {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    .step.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* --- تصميم الغرفة --- */
+    .room-container {
+      background: #f5f5f5;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .room-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    
+    .room-info span {
+      background: white;
+      padding: 8px 15px;
+      border-radius: 10px;
+      font-weight: bold;
+      color: #d81b60;
+    }
+    
+    .room {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background: white;
+      border: 3px solid #333;
+      border-radius: 10px;
+      overflow: hidden;
+      background-image: 
+        linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+    
+    .room-item {
+      position: absolute;
+      background: white;
+      padding: 8px 12px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .room-item:hover {
+      transform: scale(1.1);
+      z-index: 10;
+      box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+    }
+    
+    .room-item .emoji {
+      font-size: 1.3em;
+    }
+    
+    .door-marker, .window-marker {
+      position: absolute;
+      background: #333;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 0.8em;
+      font-weight: bold;
+    }
+    
+    .window-marker {
+      background: #2196f3;
+    }
+    
+    /* --- جدول الميزانية --- */
+    .budget-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    
+    .budget-table th,
+    .budget-table td {
+      padding: 12px;
+      text-align: right;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .budget-table th {
+      background: #fce4ec;
+      color: #d81b60;
+      font-weight: bold;
+    }
+    
+    .budget-table tr:hover {
+      background: #fafafa;
+    }
+    
+    .budget-total {
+      background: #e8f5e9 !important;
+      font-weight: bold;
+    }
+    
+    .budget-remaining {
+      background: #fff3e0 !important;
+      font-weight: bold;
+    }
+    
+    .budget-negative {
+      background: #ffebee !important;
+      color: #c62828;
+    }
+    
+    .buy-btn {
+      background: #d81b60;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85em;
+      font-family: 'Tajawal', sans-serif;
+    }
+    
+    .buy-btn:hover {
+      background: #ad1457;
+    }
+    
+    .hint {
+      text-align: center;
+      color: #888;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+    
+    /* --- النافذة المنبثقة (Modal) --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: #eee;
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      font-size: 1.2em;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal-close:hover {
+      background: #ddd;
+    }
+    
+    .modal-title {
+      color: #d81b60;
+      font-size: 1.4em;
+      margin-bottom: 5px;
+    }
+    
+    .modal-subtitle {
+      color: #666;
+      margin-bottom: 20px;
+    }
+    
+    .shop-option {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border: 2px solid #eee;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .shop-option:hover {
+      border-color: #d81b60;
+      background: #fce4ec;
+    }
+    
+    .shop-option .shop-name {
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    
+    .shop-option .shop-link {
+      font-size: 0.85em;
+      color: #888;
+      margin-top: 3px;
+    }
+    
+    .shop-option .shop-price {
+      font-weight: bold;
+      color: #d81b60;
+      font-size: 1.2em;
+      white-space: nowrap;
+    }
+    
+    .cheapest-badge {
+      background: #4caf50;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 8px;
+      font-size: 0.75em;
+      margin-right: 8px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     
     <header>
-      <h1>🛏️ صمّم غرفتك</h1>
-      <p>خلّني أصمم غرفتك على قد ميزانيتك </p>
+      <h1>️ صمّم غرفتك</h1>
+      <p>خلّني أصمم غرفتك على قد ميزانيتك ✨</p>
     </header>
     
     <!-- ========== الخطوة 1: بيانات الغرفة ========== -->
     <div class="step active" id="step1">
       <div class="card">
-        <h2>📐 الخطوة 1: بيانات غرفتك</h2>
+        <h2> الخطوة 1: بيانات غرفتك</h2>
         
         <div class="form-row">
           <div class="form-group">
@@ -392,11 +959,11 @@
         <div class="form-group">
           <label>🛋️ الأثاث الموجود عندك</label>
           <div class="checkbox-group">
-            <label><input type="checkbox" value="سرير" checked> ️ سرير</label>
+            <label><input type="checkbox" value="سرير" checked> 🛏️ سرير</label>
             <label><input type="checkbox" value="مكتب" checked> 🖥️ مكتب</label>
-            <label><input type="checkbox" value="دولاب" checked> 🚪 دولاب</label>
-            <label><input type="checkbox" value="كرسي"> 🪑 كرسي</label>
-            <label><input type="checkbox" value="رفوف"> 📚 رفوف</label>
+            <label><input type="checkbox" value="دولاب" checked>  دولاب</label>
+            <label><input type="checkbox" value="كرسي">  كرسي</label>
+            <label><input type="checkbox" value="رفوف">  رفوف</label>
           </div>
         </div>
         
@@ -431,11 +998,11 @@
             <span class="name">مودرن</span>
           </div>
           <div class="style-card" onclick="selectStyle(this, 'Gaming')">
-            <span class="emoji"></span>
+            <span class="emoji">🎮</span>
             <span class="name">Gaming</span>
           </div>
           <div class="style-card" onclick="selectStyle(this, 'فخم')">
-            <span class="emoji">👑</span>
+            <span class="emoji"></span>
             <span class="name">فخم</span>
           </div>
         </div>
@@ -450,20 +1017,18 @@
     <!-- ========== الخطوة 3: التصميم والميزانية ========== -->
     <div class="step" id="step3">
       
-      <!-- عرض الغرفة -->
       <div class="card">
-        <h2> تصميم غرفتك — <span id="chosenStyle"></span></h2>
+        <h2>🪄 تصميم غرفتك — <span id="chosenStyle"></span></h2>
         <div class="room-container">
           <div class="room-info">
             <span id="roomSize"></span>
             <span id="budgetInfo"></span>
           </div>
           <div class="room" id="room"></div>
-          <p class="hint">💡 اضغطي على أي قطعة لمعرفة تفاصيلها</p>
+          <p class="hint"> اضغطي على أي قطعة لمعرفة خيارات الشراء</p>
         </div>
       </div>
       
-      <!-- جدول الميزانية -->
       <div class="card">
         <h2>💰 تفاصيل الميزانية</h2>
         <table class="budget-table">
@@ -479,57 +1044,121 @@
       </div>
       
       <div class="btn-container">
-        <button class="btn btn-secondary" onclick="goToStep(1)">🔄 ابدأ من جديد</button>
+        <button class="btn btn-secondary" onclick="goToStep(1)"> ابدأ من جديد</button>
       </div>
     </div>
     
+  </div>
+  
+  <!-- ========== النافذة المنبثقة ========== -->
+  <div class="modal-overlay" id="shopModal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <h3 class="modal-title" id="modalTitle"></h3>
+      <p class="modal-subtitle" id="modalSubtitle"></p>
+      <div id="modalBody"></div>
+    </div>
   </div>
   
   <script>
     let selectedStyleName = '';
     let roomData = {};
     
-    // بيانات القطع لكل ستايل
+    // === قاعدة بيانات القطع لكل ستايل ===
     const itemsDB = {
       'هادئ وبسيط': [
         {name:'سجادة بيج', price:120, emoji:'🟫', x:15, y:55},
         {name:'إضاءة دافئة', price:70, emoji:'💡', x:70, y:10},
-        {name:'مرآة خشبية', price:150, emoji:'🪞', x:75, y:45},
+        {name:'مرآة خشبية', price:150, emoji:'', x:75, y:45},
         {name:'طاولة صغيرة', price:300, emoji:'🪵', x:45, y:70},
         {name:'ستارة كتان', price:100, emoji:'🪟', x:85, y:25},
         {name:'نباتات ديكور', price:160, emoji:'🌿', x:8, y:15}
       ],
       'كيوت': [
-        {name:'سجادة وردية', price:130, emoji:'', x:15, y:55},
+        {name:'سجادة وردية', price:130, emoji:'🌸', x:15, y:55},
         {name:'إضاءة نجمة', price:80, emoji:'⭐', x:70, y:10},
         {name:'مرآة قلب', price:160, emoji:'💖', x:75, y:45},
         {name:'مكتب كيوت', price:320, emoji:'🎀', x:45, y:70},
-        {name:'ستارة شيفون', price:110, emoji:'🩷', x:85, y:25},
+        {name:'ستارة شيفون', price:110, emoji:'', x:85, y:25},
         {name:'دمى ديكور', price:170, emoji:'🧸', x:8, y:15}
       ],
       'مودرن': [
         {name:'سجادة رمادية', price:140, emoji:'⬜', x:15, y:55},
         {name:'إضاءة LED', price:90, emoji:'💡', x:70, y:10},
-        {name:'مرآة دائرية', price:180, emoji:'', x:75, y:45},
-        {name:'طاولة زجاج', price:350, emoji:'🔷', x:45, y:70},
+        {name:'مرآة دائرية', price:180, emoji:'⭕', x:75, y:45},
+        {name:'طاولة زجاج', price:350, emoji:'', x:45, y:70},
         {name:'ستارة رول', price:120, emoji:'🪟', x:85, y:25},
         {name:'لوحة تجريدية', price:190, emoji:'🖼️', x:8, y:15}
       ],
       'Gaming': [
-        {name:'سجادة RGB', price:150, emoji:'🎮', x:15, y:55},
+        {name:'سجادة RGB', price:150, emoji:'', x:15, y:55},
         {name:'إضاءة نيون', price:100, emoji:'💜', x:70, y:10},
         {name:'مرآة LED', price:170, emoji:'🪞', x:75, y:45},
-        {name:'مكتب قيمنق', price:400, emoji:'🖥️', x:45, y:70},
+        {name:'مكتب قيمنق', price:400, emoji:'️', x:45, y:70},
         {name:'ستارة سوداء', price:130, emoji:'⬛', x:85, y:25},
         {name:'بوسترات ألعاب', price:180, emoji:'🕹️', x:8, y:15}
       ],
       'فخم': [
-        {name:'سجادة حرير', price:200, emoji:'👑', x:15, y:55},
+        {name:'سجادة حرير', price:200, emoji:'', x:15, y:55},
         {name:'ثريا كريستال', price:150, emoji:'💎', x:70, y:10},
         {name:'مرآة ذهبية', price:250, emoji:'✨', x:75, y:45},
         {name:'طاولة رخام', price:500, emoji:'️', x:45, y:70},
         {name:'ستارة مخمل', price:180, emoji:'🟤', x:85, y:25},
         {name:'تمثال ديكور', price:280, emoji:'🗿', x:8, y:15}
+      ]
+    };
+    
+    // === قاعدة بيانات المتاجر ===
+    const shopsDB = {
+      'سجادة': [
+        {shop:'IKEA', price:110, url:'https://www.ikea.com/sa/ar/'},
+        {shop:'نون', price:125, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'أمازون', price:118, url:'https://www.amazon.sa/'}
+      ],
+      'إضاءة': [
+        {shop:'هوم سنتر', price:65, url:'https://www.homecentre.com/sa/ar/'},
+        {shop:'نون', price:72, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'أمازون', price:68, url:'https://www.amazon.sa/'}
+      ],
+      'مرآة': [
+        {shop:'هوم سنتر', price:145, url:'https://www.homecentre.com/sa/ar/'},
+        {shop:'IKEA', price:155, url:'https://www.ikea.com/sa/ar/'},
+        {shop:'نون', price:148, url:'https://www.noon.com/saudi-ar/'}
+      ],
+      'طاولة': [
+        {shop:'IKEA', price:290, url:'https://www.ikea.com/sa/ar/'},
+        {shop:'نون', price:310, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'هوم سنتر', price:305, url:'https://www.homecentre.com/sa/ar/'}
+      ],
+      'ستارة': [
+        {shop:'أمازون', price:95, url:'https://www.amazon.sa/'},
+        {shop:'نون', price:105, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'هوم سنتر', price:100, url:'https://www.homecentre.com/sa/ar/'}
+      ],
+      'ديكور': [
+        {shop:'نون', price:155, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'أمازون', price:165, url:'https://www.amazon.sa/'},
+        {shop:'هوم سنتر', price:158, url:'https://www.homecentre.com/sa/ar/'}
+      ],
+      'نباتات ديكور': [
+        {shop:'نون', price:160, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'أمازون', price:170, url:'https://www.amazon.sa/'}
+      ],
+      'دمى ديكور': [
+        {shop:'نون', price:170, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'أمازون', price:175, url:'https://www.amazon.sa/'}
+      ],
+      'لوحة تجريدية': [
+        {shop:'نون', price:190, url:'https://www.noon.com/saudi-ar/'},
+        {shop:'هوم سنتر', price:195, url:'https://www.homecentre.com/sa/ar/'}
+      ],
+      'بوسترات ألعاب': [
+        {shop:'أمازون', price:180, url:'https://www.amazon.sa/'},
+        {shop:'نون', price:185, url:'https://www.noon.com/saudi-ar/'}
+      ],
+      'تمثال ديكور': [
+        {shop:'هوم سنتر', price:280, url:'https://www.homecentre.com/sa/ar/'},
+        {shop:'نون', price:290, url:'https://www.noon.com/saudi-ar/'}
       ]
     };
     
@@ -555,7 +1184,6 @@
         return;
       }
       
-      // حفظ بيانات الغرفة
       roomData = {
         length: document.getElementById('roomLength').value,
         width: document.getElementById('roomWidth').value,
@@ -564,17 +1192,12 @@
         window: document.getElementById('windowLocation').value
       };
       
-      // عرض معلومات الغرفة
       document.getElementById('chosenStyle').textContent = selectedStyleName;
-      document.getElementById('roomSize').textContent = ` ${roomData.length}م × ${roomData.width}م`;
+      document.getElementById('roomSize').textContent = `📐 ${roomData.length}م × ${roomData.width}م`;
       document.getElementById('budgetInfo').textContent = `💰 الميزانية: ${roomData.budget} ريال`;
       
-      // رسم الغرفة
       drawRoom();
-      
-      // بناء جدول الميزانية
       buildBudgetTable();
-      
       goToStep(3);
     }
     
@@ -582,25 +1205,25 @@
       const room = document.getElementById('room');
       room.innerHTML = '';
       
-      // إضافة علامة الباب
+      // علامة الباب
       const door = document.createElement('div');
       door.className = 'door-marker';
-      door.textContent = '🚪 باب';
+      door.textContent = ' باب';
       const doorPos = getWallPosition(roomData.door);
       door.style.left = doorPos.x + '%';
       door.style.top = doorPos.y + '%';
       room.appendChild(door);
       
-      // إضافة علامة الشباك
+      // علامة الشباك
       const win = document.createElement('div');
       win.className = 'window-marker';
-      win.textContent = '🪟 شباك';
+      win.textContent = ' شباك';
       const winPos = getWallPosition(roomData.window);
       win.style.left = winPos.x + '%';
       win.style.top = winPos.y + '%';
       room.appendChild(win);
       
-      // إضافة قطع الأثاث
+      // قطع الأثاث
       const items = itemsDB[selectedStyleName];
       items.forEach(item => {
         const div = document.createElement('div');
@@ -608,7 +1231,7 @@
         div.style.left = item.x + '%';
         div.style.top = item.y + '%';
         div.innerHTML = `<span class="emoji">${item.emoji}</span><span>${item.name}</span>`;
-        div.onclick = () => alert(`🛍️ ${item.name}\nالسعر: ${item.price} ريال\n\n(لاحقاً سنربطها بالمتاجر!)`);
+        div.onclick = () => openShopModal(item);
         room.appendChild(div);
       });
     }
@@ -636,18 +1259,18 @@
         tr.innerHTML = `
           <td>${item.emoji} ${item.name}</td>
           <td>${item.price} ريال</td>
-          <td><button class="buy-btn" onclick="alert('قريباً: خيارات الشراء من متاجر مختلفة!')">شراء</button></td>
+          <td><button class="buy-btn" onclick='openShopModal(${JSON.stringify(item)})'>🛍️ شراء</button></td>
         `;
         tbody.appendChild(tr);
       });
       
-      // صف المجموع
+      // المجموع
       const totalRow = document.createElement('tr');
       totalRow.className = 'budget-total';
       totalRow.innerHTML = `<td>المجموع</td><td>${total} ريال</td><td></td>`;
       tbody.appendChild(totalRow);
       
-      // صف المتبقي
+      // المتبقي
       const remaining = roomData.budget - total;
       const remainingRow = document.createElement('tr');
       remainingRow.className = remaining >= 0 ? 'budget-remaining' : 'budget-negative';
@@ -655,6 +1278,55 @@
       remainingRow.innerHTML = `<td>المتبقي من ميزانيتك</td><td>${remaining} ريال ${status}</td><td></td>`;
       tbody.appendChild(remainingRow);
     }
+    
+    // === فتح نافذة المتجر ===
+    function openShopModal(item) {
+      const modal = document.getElementById('shopModal');
+      const title = document.getElementById('modalTitle');
+      const subtitle = document.getElementById('modalSubtitle');
+      const body = document.getElementById('modalBody');
+      
+      title.textContent = `${item.emoji} ${item.name}`;
+      subtitle.textContent = `السعر المقترح: ${item.price} ريال — اختاري من المتجر الأنسب لك:`;
+      
+      // البحث عن خيارات المتجر
+      const categoryKey = Object.keys(shopsDB).find(key => item.name.includes(key));
+      const options = shopsDB[categoryKey] || [
+        {shop:'متجر عام', price: item.price, url: `https://www.google.com/search?q=${encodeURIComponent(item.name)}+شراء`}
+      ];
+      
+      // ترتيب حسب السعر (الأرخص أولاً)
+      options.sort((a, b) => a.price - b.price);
+      
+      body.innerHTML = options.map((opt, index) => `
+        <div class="shop-option" onclick="window.open('${opt.url}', '_blank')">
+          <div>
+            <div class="shop-name">
+              ${index === 0 ? '<span class="cheapest-badge">الأرخص</span>' : ''}
+              ${opt.shop}
+            </div>
+            <div class="shop-link">اضغطي للزيارة ←</div>
+          </div>
+          <div class="shop-price">${opt.price} ريال</div>
+        </div>
+      `).join('');
+      
+      modal.classList.add('active');
+    }
+    
+    function closeModal() {
+      document.getElementById('shopModal').classList.remove('active');
+    }
+    
+    // إغلاق النافذة عند الضغط خارجها
+    document.getElementById('shopModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+    
+    // إغلاق النافذة بزر Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
+    });
   </script>
   
 </body>
