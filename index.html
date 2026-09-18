@@ -139,9 +139,71 @@
       box-shadow: 0 8px 20px rgba(216, 27, 96, 0.4);
     }
     
+    .btn-secondary {
+      background: #eee;
+      color: #333;
+    }
+    
     .btn-container {
       text-align: center;
       margin-top: 25px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    
+    /* --- تصميم بطاقات الستايل --- */
+    .styles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    
+    .style-card {
+      background: #fafafa;
+      border: 3px solid transparent;
+      border-radius: 15px;
+      padding: 20px 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    
+    .style-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .style-card.active {
+      border-color: #d81b60;
+      background: #fce4ec;
+    }
+    
+    .style-card .emoji {
+      font-size: 2.5em;
+      display: block;
+      margin-bottom: 8px;
+    }
+    
+    .style-card .name {
+      font-weight: bold;
+      color: #333;
+    }
+    
+    /* --- إخفاء وإظهار الخطوات --- */
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    .step.active {
+      display: block;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -153,91 +215,154 @@
       <p>خلّني أصمم غرفتك على قد ميزانيتك ✨</p>
     </header>
     
-    <div class="card">
-      <h2>📐 الخطوة 1: بيانات غرفتك</h2>
-      
-      <!-- الطول والعرض -->
-      <div class="form-row">
+    <!-- ========== الخطوة 1: بيانات الغرفة ========== -->
+    <div class="step active" id="step1">
+      <div class="card">
+        <h2>📐 الخطوة 1: بيانات غرفتك</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label> طول الغرفة (متر)</label>
+            <input type="number" id="roomLength" value="4" min="2" max="10">
+          </div>
+          <div class="form-group">
+            <label>📐 عرض الغرفة (متر)</label>
+            <input type="number" id="roomWidth" value="3" min="2" max="10">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>🚪 موقع الباب</label>
+            <select id="doorLocation">
+              <option value="right">الجدار اليمين</option>
+              <option value="left">الجدار اليسار</option>
+              <option value="front">الجدار الأمامي</option>
+              <option value="back">الجدار الخلفي</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>🪟 موقع الشباك</label>
+            <select id="windowLocation">
+              <option value="front">الجدار الأمامي</option>
+              <option value="back">الجدار الخلفي</option>
+              <option value="right">الجدار اليمين</option>
+              <option value="left">الجدار اليسار</option>
+            </select>
+          </div>
+        </div>
+        
         <div class="form-group">
-          <label>📏 طول الغرفة (متر)</label>
-          <input type="number" id="roomLength" value="4" min="2" max="10">
+          <label>🛋️ الأثاث الموجود عندك</label>
+          <div class="checkbox-group">
+            <label><input type="checkbox" value="سرير" checked> 🛏️ سرير</label>
+            <label><input type="checkbox" value="مكتب" checked> 🖥️ مكتب</label>
+            <label><input type="checkbox" value="دولاب" checked> 🚪 دولاب</label>
+            <label><input type="checkbox" value="كرسي"> 🪑 كرسي</label>
+            <label><input type="checkbox" value="رفوف"> 📚 رفوف</label>
+          </div>
         </div>
+        
         <div class="form-group">
-          <label>📐 عرض الغرفة (متر)</label>
-          <input type="number" id="roomWidth" value="3" min="2" max="10">
+          <label>💰 ميزانيتك (ريال)</label>
+          <input type="number" id="budget" value="1500" min="100" step="50">
+        </div>
+        
+        <div class="btn-container">
+          <button class="btn" onclick="goToStep(2)">التالي: اختر الستايل ←</button>
         </div>
       </div>
-      
-      <!-- الباب والشباك -->
-      <div class="form-row">
-        <div class="form-group">
-          <label>🚪 موقع الباب</label>
-          <select id="doorLocation">
-            <option value="right">الجدار اليمين</option>
-            <option value="left">الجدار اليسار</option>
-            <option value="front">الجدار الأمامي</option>
-            <option value="back">الجدار الخلفي</option>
-          </select>
+    </div>
+    
+    <!-- ========== الخطوة 2: اختيار الستايل ========== -->
+    <div class="step" id="step2">
+      <div class="card">
+        <h2> الخطوة 2: اختر ستايل غرفتك</h2>
+        <p style="color:#666; margin-bottom:20px;">اضغطي على الستايل اللي يعجبك:</p>
+        
+        <div class="styles-grid">
+          <div class="style-card" onclick="selectStyle(this, 'هادئ وبسيط')">
+            <span class="emoji">🌿</span>
+            <span class="name">هادئ وبسيط</span>
+          </div>
+          <div class="style-card" onclick="selectStyle(this, 'كيوت')">
+            <span class="emoji"></span>
+            <span class="name">كيوت</span>
+          </div>
+          <div class="style-card" onclick="selectStyle(this, 'مودرن')">
+            <span class="emoji">✨</span>
+            <span class="name">مودرن</span>
+          </div>
+          <div class="style-card" onclick="selectStyle(this, 'Gaming')">
+            <span class="emoji">🎮</span>
+            <span class="name">Gaming</span>
+          </div>
+          <div class="style-card" onclick="selectStyle(this, 'فخم')">
+            <span class="emoji">👑</span>
+            <span class="name">فخم</span>
+          </div>
         </div>
-        <div class="form-group">
-          <label> موقع الشباك</label>
-          <select id="windowLocation">
-            <option value="front">الجدار الأمامي</option>
-            <option value="back">الجدار الخلفي</option>
-            <option value="right">الجدار اليمين</option>
-            <option value="left">الجدار اليسار</option>
-          </select>
+        
+        <div class="btn-container">
+          <button class="btn btn-secondary" onclick="goToStep(1)">→ رجوع</button>
+          <button class="btn" onclick="generateDesign()"> صمّم غرفتي</button>
         </div>
       </div>
-      
-      <!-- الأثاث الموجود -->
-      <div class="form-group">
-        <label>🛋️ الأثاث الموجود عندك</label>
-        <div class="checkbox-group">
-          <label><input type="checkbox" value="سرير" checked> 🛏️ سرير</label>
-          <label><input type="checkbox" value="مكتب" checked> 🖥️ مكتب</label>
-          <label><input type="checkbox" value="دولاب" checked> 🚪 دولاب</label>
-          <label><input type="checkbox" value="كرسي"> 🪑 كرسي</label>
-          <label><input type="checkbox" value="رفوف"> 📚 رفوف</label>
+    </div>
+    
+    <!-- ========== الخطوة 3: النتيجة (سنبنيها لاحقاً) ========== -->
+    <div class="step" id="step3">
+      <div class="card">
+        <h2> تصميم غرفتك</h2>
+        <p style="text-align:center; padding:40px; color:#666;">
+          جاري بناء التصميم... <br>
+          الستايل المختار: <strong id="chosenStyle"></strong>
+        </p>
+        <div class="btn-container">
+          <button class="btn btn-secondary" onclick="goToStep(1)">🔄 ابدأ من جديد</button>
         </div>
       </div>
-      
-      <!-- الميزانية -->
-      <div class="form-group">
-        <label>💰 ميزانيتك (ريال)</label>
-        <input type="number" id="budget" value="1500" min="100" step="50">
-      </div>
-      
-      <!-- زر التالي -->
-      <div class="btn-container">
-        <button class="btn" onclick="saveRoomData()">التالي: اختر الستايل ←</button>
-      </div>
-      
     </div>
     
   </div>
   
   <script>
-    function saveRoomData() {
-      // قراءة البيانات من الحقول
-      const roomData = {
-        length: document.getElementById('roomLength').value,
-        width: document.getElementById('roomWidth').value,
-        door: document.getElementById('doorLocation').value,
-        window: document.getElementById('windowLocation').value,
-        budget: document.getElementById('budget').value,
-        furniture: []
-      };
-      
-      // جمع الأثاث المختار
-      const checkboxes = document.querySelectorAll('.checkbox-group input:checked');
-      checkboxes.forEach(cb => {
-        roomData.furniture.push(cb.value);
+    let selectedStyleName = '';
+    
+    // دالة الانتقال بين الخطوات
+    function goToStep(stepNumber) {
+      // إخفاء كل الخطوات
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
       });
-      
-      // حفظ البيانات (مؤقتاً في الذاكرة)
-      console.log('بيانات الغرفة:', roomData);
-      alert('✅ تم حفظ بيانات غرفتك!\n\nالطول: ' + roomData.length + 'م\nالعرض: ' + roomData.width + 'م\nالميزانية: ' + roomData.budget + ' ريال');
+      // إظهار الخطوة المطلوبة
+      document.getElementById('step' + stepNumber).classList.add('active');
+      // التمرير لأعلى الصفحة
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+    // دالة اختيار الستايل
+    function selectStyle(element, styleName) {
+      // إزالة التحديد من كل البطاقات
+      document.querySelectorAll('.style-card').forEach(card => {
+        card.classList.remove('active');
+      });
+      // تحديد البطاقة المضغوطة
+      element.classList.add('active');
+      // حفظ اسم الستايل
+      selectedStyleName = styleName;
+    }
+    
+    // دالة توليد التصميم (مؤقتاً)
+    function generateDesign() {
+      if (!selectedStyleName) {
+        alert('⚠️ اختاري ستايل أولاً!');
+        return;
+      }
+      // عرض اسم الستايل في الخطوة 3
+      document.getElementById('chosenStyle').textContent = selectedStyleName;
+      // الانتقال للخطوة 3
+      goToStep(3);
     }
   </script>
   
